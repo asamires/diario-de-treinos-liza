@@ -292,3 +292,24 @@ input[type="number"] {
 .btn-excluir:hover {
     background-color: #555955;
 }
+.btn-editar {
+    background-color: #B7F000;
+    color: #0B0D0B;
+    border: 1px solid #B7F000;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 5px;
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.btn-editar:hover {
+    background-color: #9FD000;
+}
+.btn-editar,
+.btn-excluir {
+    width: auto;
+    display: inline-block;
+    margin-right: 8px;
+}

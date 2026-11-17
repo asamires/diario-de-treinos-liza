@@ -139,8 +139,12 @@ app.get('/api/treinos', async (req, res) => {
     });
     res.json(treinos);
   } catch (erro) {
-    res.status(500).json({ erro: 'Erro ao buscar os treinos.' });
-  }
+  console.error('ERRO AO BUSCAR TREINOS:', erro);
+
+  res.status(500).json({
+    erro: 'Erro ao buscar os treinos.'
+  });
+}
 });
 
 // Rota POST: Criar treino amarrado ao usuário
@@ -188,7 +192,7 @@ app.delete('/api/treinos/:id', async (req, res) => {
   }
 });
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   app.listen(PORTA, () => {
     console.log(`Servidor ativo em http://localhost:${PORTA}`);
   });

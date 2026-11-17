@@ -1,9 +1,10 @@
 const usuarioLogado = JSON.parse(sessionStorage.getItem("usuarioLogado"));
 
-// Se não houver usuário na sessão, redireciona para o login
 if (!usuarioLogado || !usuarioLogado.id) {
-  window.location.href = "login.html";
+    window.location.href = "login.html";
 }
+
+let treinoEditando = null;
 
 const formTreino = document.getElementById("formTreino");
 const tipo = document.getElementById("tipo");
@@ -104,13 +105,63 @@ function mostrarTreinos(treinos) {
     btnExcluir.textContent = "Excluir";
     btnExcluir.classList.add("btn-excluir");
 
+    const btnEditar = document.createElement("button");
+    btnEditar.type = "button";
+    btnEditar.textContent = "Editar";
+    btnEditar.classList.add("btn-editar");
+
+   
     btnExcluir.addEventListener("click", async () => {
-      await fetch(`/api/treinos/${treino.id}`, { method: "DELETE" });
-      carregarTreinos();
+    const confirmarExclusao = confirm(
+    `Deseja realmente excluir o exercício "${treino.nome}"?`
+    );
+
+  if (confirmarExclusao) {
+    await fetch(`/api/treinos/${treino.id}`, {
+      method: "DELETE"
     });
 
-    item.append(titulo, categoria, detalhes, btnExcluir);
+    carregarTreinos();
+  }
+});
+
+    btnEditar.addEventListener("click", () => {
+  treinoEditando = treino.id;
+
+  nome.value = treino.nome;
+  tipo.value = treino.tipo;
+
+  tipo.dispatchEvent(new Event("change"));
+
+  if (treino.tipo === "musculacao" || treino.tipo === "alongamento") {
+    quantidadeSeries.value = treino.series.length;
+    quantidadeSeries.dispatchEvent(new Event("input"));
+
+    treino.series.forEach((serie, indice) => {
+      document.getElementById(`repeticoes-${indice + 1}`).value = serie.repeticoes;
+      document.getElementById(`carga-${indice + 1}`).value = serie.carga;
+    });
+  }
+
+  if (treino.tipo === "cardio") {
+    document.getElementById("duracaoCardio").value = treino.duracao || "";
+    document.getElementById("distanciaCardio").value = treino.distancia || "";
+  }
+
+  formTreino.querySelector('button[type="submit"]').textContent = "Salvar alterações";
+
+  formTreino.scrollIntoView({ behavior: "smooth" });
+});
+
+    const grupoBotoes = document.createElement("div");
+    grupoBotoes.classList.add("grupo-botoes");
+
+    grupoBotoes.append(btnEditar, btnExcluir);
+
+    item.append(titulo, categoria, detalhes, grupoBotoes);
     listaTreinos.appendChild(item);
+
+    
   });
 }
 
@@ -149,7 +200,7 @@ formTreino.addEventListener("submit", async (evento) => {
       alert("Informe a duração do exercício.");
       return;
     }
-    duracaoCardio: Number(duracao);
+    dadosTreino.duracao = Number(duracao);
     dadosTreino.duracao = Number(duracao);
     dadosTreino.distancia = distancia ? Number(distancia) : null;
   }
