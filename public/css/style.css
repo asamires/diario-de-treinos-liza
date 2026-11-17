@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #0B0D0B;
+    color: #F5F5F5;
+    font-family: Arial, sans-serif;
+    padding: 32px 20px;
+}
+
+
+header {
+    max-width: 850px;
+    margin: 0 auto 32px;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+h1 span {
+    color: #C6FF00;
+}
+
+header p {
+    font-size: 22px;
+    color: #E5E5E5;
+    margin-top: 5px;
+}
+
+header strong {
+    color: #FFFFFF;
+}
+
+
+main {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+
+section {
+    background-color: #202320;
+    border: 1px solid #505450;
+    border-radius: 28px;
+    padding: 32px 40px;
+    margin-bottom: 24px;
+}
+
+
+h2 {
+    font-size: 38px;
+    margin-bottom: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    background-color: #272927;
+    border: 1px solid #555955;
+    border-radius: 17px;
+    padding: 15px 25px;
+    color: #F5F5F5;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#tipo {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m3 6 5 5 5-5' fill='none' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 35px center;
+    background-size: 16px;
+    padding-right: 50px;
+}
+
+
+input::placeholder {
+    color: #C4C4C4;
+}
+
+button {
+    background-color: #C6FF00;
+    color: #080A08;
+    border: none;
+    border-radius: 18px;
+    padding: 22px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color: #B3E600;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    background-color: #272927;
+    border: 1px solid #555955;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #E5E5E5;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.icone-verde {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+}
+
+.titulo {
+    border-left: 3px solid #F5F5F5;
+    padding-left: 30px;
+}
+
+.lista-vazia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 150px;
+}
+
+.lista-vazia img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.grupo-campos {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#listaSeries {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.serie {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    background-color: #272927;
+    border: 1px solid #555955;
+    border-radius: 17px;
+    padding: 18px;
+}
+
+.serie h3 {
+    grid-column: 1 / -1;
+    font-size: 18px;
+}
+
+.campo-serie {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo-serie label {
+    font-size: 16px;
+}
+
+.campo-serie input {
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+input[type="number"] {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 28px 22px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    header p {
+        font-size: 16px;
+    }
+
+    section {
+        padding: 26px 22px;
+        border-radius: 22px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    label {
+        font-size: 17px;
+    }
+
+    input,
+    select {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 18px;
+    }
+
+    header {
+        gap: 15px;
+    }
+
+    .icone-verde {
+        width: 65px;
+        height: 65px;
+    }
+
+    .titulo {
+        padding-left: 15px;
+    }
+    section {
+    margin-bottom: 20px;
+}
+}
+
+.item-treino {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-treino h3 {
+    color: #C6FF00;
+    font-size: 22px;
+}
+
+.item-treino p {
+    font-size: 16px;
+}
+
+.detalhes-treino {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-excluir {
+    background-color: #393D39;
+    color: #F5F5F5;
+    border: 1px solid #555955;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 5px;
+    align-self: flex-start;
+}
+
+.btn-excluir:hover {
+    background-color: #555955;
+}

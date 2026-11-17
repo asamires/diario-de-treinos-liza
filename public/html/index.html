@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário de Treinos</title>
+    <link rel="icon" type="image/png" href="../assets/gym verde.png">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+
+  <header>
+    <img src="../assets/gym verde.png" alt="Ícone de halter" class="icone-verde">
+
+    <div class="titulo">
+        <h1>Diário de <span>Treinos</span></h1>
+        <p>Registre seus exercícios e <strong>deixe de ser frango!</strong></p>
+    </div>
+</header>
+
+    <main>
+        <section>
+            <h2>Novo exercício</h2>
+
+           
+<form id="formTreino">
+
+    <label for="nome">Nome do exercício:</label>
+    <input type="text" id="nome" placeholder="Ex: Agachamento" required>
+
+    <label for="tipo">Tipo de exercício:</label>
+    <select id="tipo" required>
+        <option value="">Selecione</option>
+        <option value="alongamento">Alongamento</option>
+        <option value="musculacao">Musculação</option>
+        <option value="cardio">Cardio</option>
+      
+    </select>
+
+    
+<div id="camposSeries" class="grupo-campos">
+
+    <label for="quantidadeSeries">Quantidade de séries:</label>
+    <input
+        type="number"
+        id="quantidadeSeries"
+        min="1"
+        placeholder="Ex: 3"
+    >
+
+    <div id="listaSeries"></div>
+
+</div>
+
+
+<div id="camposCardio" class="grupo-campos">
+
+    <label for="duracaoCardio">Duração (minutos):</label>
+    <input
+        type="number"
+        id="duracaoCardio"
+        min="1"
+        placeholder="Ex: 30"
+    >
+
+    <label for="distanciaCardio">Distância (km):</label>
+    <input
+        type="number"
+        id="distanciaCardio"
+        min="0"
+        step="0.01"
+        placeholder="Ex: 2,5"
+    >
+
+</div>
+
+    <button type="submit">Adicionar exercício</button>
+
+</form>
+
+        </section>
+
+        <section>
+            <h2>Meus exercícios</h2>
+            <ul id="listaTreinos">
+                <li class="lista-vazia">
+         <img src="../assets/gym cinza.png" alt="Ícone de halter">
+         <p>Nenhum exercício registrado ainda.</p>
+             </li>
+            </ul>
+        </section>
+    </main>
+
+<script src="../js/app.js" defer></script>
+</body>
+</html>
