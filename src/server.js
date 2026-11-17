@@ -1,5 +1,5 @@
 import express from 'express';
-import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 import { Op } from 'sequelize';
 import { sequelize, Usuario, Treino, Serie } from './database.js';
 
@@ -13,9 +13,7 @@ app.get('/', (req, res) => {
   res.redirect('/html/login.html');
 });
 
-function gerarHashSenha(senha) {
-  return crypto.createHash('sha256').update(senha).digest('hex');
-}
+
 
 // Rota de Cadastro
 app.post('/api/cadastro', async (req, res) => {
@@ -72,7 +70,7 @@ app.post('/api/cadastro', async (req, res) => {
       dataNascimento,
       user: user.trim().toLowerCase(),
       email: email.trim().toLowerCase(),
-      senha: gerarHashSenha(senha)
+      senha: await bcrypt.hash (senha,10) 
     });
 
     res.status(201).json({ id: novoUsuario.id, nome: novoUsuario.nome });
@@ -81,24 +79,32 @@ app.post('/api/cadastro', async (req, res) => {
   }
 });
 
-// Rota de Login
+
+ // Rota de Login
 app.post('/api/login', async (req, res) => {
   try {
     const { login, senha } = req.body;
     const identificador = (login || '').trim().toLowerCase();
 
     if (!identificador || !senha) {
-      return res.status(400).json({ erro: 'Informe seu e-mail/user e a senha.' });
+      return res.status(400).json({
+        erro: 'Informe seu e-mail/user e a senha.'
+      });
     }
 
     const usuario = await Usuario.findOne({
       where: {
-        [Op.or]: [{ email: identificador }, { user: identificador }]
+        [Op.or]: [
+          { email: identificador },
+          { user: identificador }
+        ]
       }
     });
 
-    if (!usuario || usuario.senha !== gerarHashSenha(senha)) {
-      return res.status(401).json({ erro: 'Usuário ou senha incorretos.' });
+    if (!usuario || !(await bcrypt.compare(senha, usuario.senha))) {
+      return res.status(401).json({
+        erro: 'Usuário ou senha incorretos.'
+      });
     }
 
     res.json({
@@ -107,12 +113,18 @@ app.post('/api/login', async (req, res) => {
       user: usuario.user,
       email: usuario.email
     });
+
   } catch (erro) {
-    res.status(500).json({ erro: 'Erro ao processar o login.' });
+    console.error('ERRO NO LOGIN:', erro);
+    res.status(500).json({
+      erro: 'Erro ao processar o login.'
+    });
   }
 });
 
+
 // Rota GET: Buscar treinos do usuário logado (passado via Query Param)
+
 app.get('/api/treinos', async (req, res) => {
   try {
     const { usuarioId } = req.query;

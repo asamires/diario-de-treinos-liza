@@ -49,4 +49,31 @@ export default function () {
       'impedir cadastro duplicado (409)': (r) => r.status === 409
     });
   });
+
+  group('Login com senha correta', function () {
+    const respostaLogin = post('/api/login', {
+      login: dados.user,
+      senha: dados.senha
+    });
+
+    console.log('STATUS LOGIN:', respostaLogin.status);
+    console.log('RESPOSTA LOGIN:', respostaLogin.body);
+
+    check(respostaLogin, {
+      'realizar login (200)': (r) => r.status === 200
+    });
+  });
+
+  group('Login com senha incorreta', function () {
+    const respostaSenhaIncorreta = post('/api/login', {
+      login: dados.user,
+      senha: 'senhaerrada'
+    });
+
+    console.log('STATUS SENHA INCORRETA:', respostaSenhaIncorreta.status);
+
+    check(respostaSenhaIncorreta, {
+      'rejeitar senha incorreta (401)': (r) => r.status === 401
+    });
+  });
 }
